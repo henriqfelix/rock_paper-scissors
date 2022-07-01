@@ -150,13 +150,12 @@
   z-index: 1;
   display: grid;
   grid-template-columns: 4fr 2fr 4fr;
-  visibility: hidden;
-  transition: 1s;
+  opacity: 0;
 }
 
 .game__container.enabled {
-  visibility: visible;
   box-shadow: var(--shadow);
+  animation: appears 1.2s 0.4s forwards ease;
 }
 
 .game__player {
@@ -240,8 +239,15 @@
   width: 0.7rem;
   border-radius: 50%;
   background-color: var(--light-color);
-  box-shadow: var(--shadow);
   margin: 0 0.4rem;
+}
+
+.game__point.bo3:nth-child(n + 2):nth-child(-n + 5) {
+  box-shadow: var(--shadow);
+}
+
+.game__point.bo5 {
+  box-shadow: var(--shadow);
 }
 
 .player__point--1 {
@@ -257,6 +263,36 @@
 
 .result {
   background-color: var(--dark-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0.5rem;
+}
+
+.round__winner {
+  color: var(--light-color);
+  text-transform: uppercase;
+  font-weight: var(--regular-font);
+}
+
+.game__credit {
+  height: 4.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.game__credit span {
+  height: auto;
+}
+
+.game__credit a {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  font-weight: var(--semi-bold-font);
+  padding: 0.5rem;
+  text-decoration: none;
 }
 
 /*==== ANIMATIONS ====*/
@@ -273,9 +309,9 @@
 
 @keyframes appears {
   0% {
-    visibility: hidden;
+    opacity: 0;
   }
   100% {
-    visibility: visible;
+    opacity: 1;
   }
 }
