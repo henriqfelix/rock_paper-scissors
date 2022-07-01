@@ -23,7 +23,7 @@
   --semi-bold-font: 800;
   --bold-font: 900;
 
-  --shadow: 0 0 3px 1px hsl(0, 0%, 5%);
+  --shadow: 0 0 3px 1px rgba(0, 0, 0, 0.8);
 }
 
 .container {
