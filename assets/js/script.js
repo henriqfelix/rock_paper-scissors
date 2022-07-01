@@ -45,18 +45,12 @@ function handlePlay() {
 }
 //==== SET PLAYER NAME ====//
 function setPlayerName() {
-  if (username.value === "") {
-    playerName = "player";
-  } else {
-    playerName = username.value;
-  }
+  playerName = username.value === "" ? "player" : username.value;
 }
 //==== SET GAME MODE ====//
 function setGameMode() {
   buttons.forEach(function (button) {
-    if (button.classList.contains("selected")) {
-      gameMode = button.id;
-    }
+    if (button.classList.contains("selected")) gameMode = button.id;
   });
 }
 
