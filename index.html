@@ -4,39 +4,58 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS STYLE -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+
     <title>Rock Paper Scissors</title>
   </head>
   <body>
     <div class="container">
       <div class="menu__container">
         <div class="menu__start">
-          <h1 class="menu__title"></h1>
+          <div class="menu__title--content">
+            <h1 class="menu__title">Rock Paper Scissors</h1>
+          </div>
+          <div class="menu__content">
+            <div class="input__control">
+              <label for="name" class="menu__label">your name</label>
+              <input
+                type="text"
+                id="username"
+                autocomplete="off"
+                class="menu__input"
+              />
+            </div>
 
-          <label for="name" class="menu__label">your name</label>
-          <input type="text" id="name" class="menu__input" />
+            <button class="menu__button game__mode--button" id="classic">
+              classic
+            </button>
 
-          <input
-            type="radio"
-            name="game-mode"
-            id="cassic"
-            class="menu__input"
-          />
-          <input
-            type="radio"
-            name="game-mode"
-            id="cassic"
-            class="menu__input"
-          />
-          <input
-            type="radio"
-            name="game-mode"
-            id="cassic"
-            class="menu__input"
-          />
+            <button class="menu__button game__mode--button" id="bo3">
+              best of three
+            </button>
 
-          <input type="button" value="PLAY" class="menu__button" />
+            <button class="menu__button game__mode--button" id="bo5">
+              best of five
+            </button>
+          </div>
+
+          <div class="menu__play">
+            <button class="menu__button play__button">play</button>
+          </div>
         </div>
       </div>
     </div>
+
+    <script src="assets/js/script.js"></script>
   </body>
 </html>
