@@ -36,6 +36,7 @@
   position: relative;
 }
 
+/*==== MENU ====*/
 .menu__container {
   display: flex;
   justify-content: center;
@@ -47,6 +48,7 @@
   box-shadow: var(--shadow);
   padding: 3rem 0;
   transition: 0.5s 0.4s;
+  z-index: 100;
 }
 
 .menu__container.left {
@@ -138,6 +140,125 @@
   transition: 0.4s;
 }
 
+/*==== GAME ====*/
+.game__container {
+  width: 70%;
+  height: 70vh;
+  background-color: var(--light-color);
+  position: absolute;
+  right: 5rem;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 4fr 2fr 4fr;
+  visibility: hidden;
+  transition: 1s;
+}
+
+.game__container.enabled {
+  visibility: visible;
+  box-shadow: var(--shadow);
+}
+
+.game__player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.game__player {
+  padding: 3rem 0;
+}
+
+.game__name--title {
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: var(--semi-bold-font);
+}
+
+.game__display {
+  box-shadow: var(--shadow);
+  height: 14rem;
+  width: 14rem;
+  border-radius: 50%;
+}
+
+.game__choices {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 2rem;
+}
+
+.game__button {
+  height: 4.5rem;
+  width: 4.5rem;
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+  font-size: 1rem;
+  font-weight: var(--regular-font);
+  cursor: pointer;
+}
+
+.game__score {
+  display: grid;
+  grid-template-rows: 1fr 2fr 1fr 3fr;
+}
+
+.game__title--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game__mode--title {
+  font-size: 1.5rem;
+  font-weight: var(--semi-bold-font);
+  text-transform: uppercase;
+}
+
+.game__mode {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game__mode--choice {
+  font-size: 1.2rem;
+  margin: 0 0.2rem;
+  font-weight: var(--light-font);
+  text-transform: uppercase;
+}
+
+.game__point--container {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.game__point {
+  height: 0.7rem;
+  width: 0.7rem;
+  border-radius: 50%;
+  background-color: var(--light-color);
+  box-shadow: var(--shadow);
+  margin: 0 0.4rem;
+}
+
+.player__point--1 {
+  margin-right: 1rem;
+}
+
+.versus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.result {
+  background-color: var(--dark-color);
+}
+
 /*==== ANIMATIONS ====*/
 @keyframes move-x {
   0% {
@@ -147,5 +268,14 @@
   100% {
     transform: translateX(-32rem);
     width: 18rem;
+  }
+}
+
+@keyframes appears {
+  0% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
   }
 }

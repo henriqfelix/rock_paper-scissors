@@ -7,6 +7,7 @@ const buttons = document.querySelectorAll(".game__mode--button");
 
 const menuStart = document.querySelector(".menu__start");
 const menuContainer = document.querySelector(".menu__container");
+const gameContainer = document.querySelector(".game__container");
 
 let playerName = "";
 let gameMode = "";
@@ -38,6 +39,7 @@ function addChoice(e) {
 function handlePlay() {
   setPlayerName();
   setGameMode();
+  if (gameMode === "") return;
   chooseScreen();
 
   console.log(playerName);
@@ -58,4 +60,5 @@ function chooseScreen() {
   console.log("s");
   menuContainer.classList.add("left");
   menuStart.classList.add("disabled");
+  gameContainer.classList.add("enabled");
 }
