@@ -10,9 +10,17 @@ const menuStart = document.querySelector(".menu__start");
 const menuContainer = document.querySelector(".menu__container");
 const menuGame = document.querySelector(".menu__game");
 const gameContainer = document.querySelector(".game__container");
+const gamePoints = document.querySelectorAll(".game__point");
+const gameModeTitle = document.querySelector(".game__mode--choice");
 
 let playerName = "";
 let gameMode = "";
+let playerChoice = "";
+let computerChoice = "";
+let playerRoundScore = "0";
+let computerRoundScore = "0";
+let playerScore = "0";
+let computerScore = "0";
 
 buttons.forEach(function (button) {
   button.addEventListener("click", chooseGameMode);
@@ -42,7 +50,8 @@ function handlePlay() {
   setPlayerName();
   setGameMode();
   if (gameMode === "") return;
-  chooseScreen();
+  setGameTemplate();
+  goToGame();
 
   console.log(playerName);
   console.log(gameMode);
@@ -64,13 +73,51 @@ function setGameMode() {
   });
 }
 
-function chooseScreen() {
+function setGameTemplate() {
+  switch (gameMode) {
+    case "classic": {
+      gamePoints.forEach(function (gamePoint) {
+        gamePoint.classList.remove("bo3");
+        gamePoint.classList.remove("bo5");
+        gamePoint.classList.add("classic");
+      });
+      gameModeTitle.innerHTML = "classic";
+      goToGame();
+      return;
+    }
+    case "bo3": {
+      gamePoints.forEach(function (gamePoint) {
+        gamePoint.classList.remove("classic");
+        gamePoint.classList.remove("bo5");
+        gamePoint.classList.add("bo3");
+      });
+      gameModeTitle.innerHTML = "best of three";
+      goToGame();
+      return;
+    }
+    case "bo5": {
+      gamePoints.forEach(function (gamePoint) {
+        gamePoint.classList.remove("classic");
+        gamePoint.classList.remove("bo3");
+        gamePoint.classList.add("bo5");
+      });
+      gameModeTitle.innerHTML = "best of five";
+      goToGame();
+      return;
+    }
+  }
+}
+//==== GO TO GAME SCREEN ====//
+function goToGame() {
   menuContainer.classList.add("left");
   menuStart.classList.add("disabled");
   gameContainer.classList.add("enabled");
   menuGame.classList.add("enabled");
 }
 
+/*==== GAME SCREEN ====*/
+
+//==== BACK TO MENU ====//
 function backToMenu() {
   menuContainer.classList.remove("left");
   menuStart.classList.remove("disabled");

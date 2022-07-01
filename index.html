@@ -90,21 +90,33 @@
 
           <div class="game__mode">
             <div>
-              <h4 class="game__mode--choice">best of five</h4>
+              <h4 class="game__mode--choice"></h4>
             </div>
 
             <div class="game__point--container">
-              <div class="game__point bo5 player__point--3"></div>
-              <div class="game__point bo5 player__point--2"></div>
-              <div class="game__point bo5 player__point--1"></div>
+              <div class="game__point player__point--3"></div>
+              <div class="game__point player__point--2"></div>
+              <div class="game__point player__point--1"></div>
 
-              <div class="game__point bo5 computer__point--3"></div>
-              <div class="game__point bo5 computer__point--2"></div>
-              <div class="game__point bo5 computer__point--1"></div>
+              <div class="game__point computer__point--3"></div>
+              <div class="game__point computer__point--2"></div>
+              <div class="game__point computer__point--1"></div>
             </div>
           </div>
 
-          <span class="versus">vs</span>
+          <div class="game__versus">
+            <div class="versus__score">
+              <span class="game__player--score versus__score--number">0</span>
+            </div>
+
+            <div class="versus__score">
+              <span class="versus">vs</span>
+            </div>
+
+            <div class="versus__score">
+              <span class="game__computer--score versus__score--number">0</span>
+            </div>
+          </div>
 
           <div class="result">
             <h4 class="round__winner">round winner</h4>
