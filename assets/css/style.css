@@ -140,6 +140,33 @@
   transition: 0.4s;
 }
 
+/*==== MENU GAME ====*/
+.menu__game {
+  display: none;
+  opacity: 0;
+  width: 80%;
+  height: 100%;
+}
+
+.menu__game.enabled {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  animation: appears 1s 0.5s forwards ease-in;
+}
+
+.menu__back {
+  width: 100%;
+}
+
+.back__button:hover {
+  color: var(--dark-color);
+  background-color: var(--light-color);
+  font-weight: var(--bold-font);
+  letter-spacing: 0.4rem;
+}
+
 /*==== GAME ====*/
 .game__container {
   width: 70%;
