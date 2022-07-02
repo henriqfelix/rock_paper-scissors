@@ -203,10 +203,21 @@
 }
 
 .game__display {
-  box-shadow: var(--shadow);
   height: 14rem;
   width: 14rem;
   border-radius: 50%;
+  background-color: var(--dark-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+
+.game__display img {
+  width: 6rem;
+  margin-top: 2rem;
+  display: block;
+  object-fit: cover;
 }
 
 .game__choices {
@@ -223,6 +234,12 @@
   font-size: 1rem;
   font-weight: var(--regular-font);
   cursor: pointer;
+}
+
+.game__button.player__choice {
+  box-shadow: none;
+  background-color: var(--dark-color);
+  color: var(--light-color);
 }
 
 .game__score {

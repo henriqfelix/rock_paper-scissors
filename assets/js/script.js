@@ -13,6 +13,8 @@ const gameContainer = document.querySelector(".game__container");
 const gameModeTitle = document.querySelector(".game__mode--choice");
 const gamePoints = document.querySelectorAll(".game__point");
 const gameButtons = document.querySelectorAll(".game__button");
+const playerImg = document.querySelector(".player__img");
+const computerImg = document.querySelector(".computer__img");
 
 let playerName = "";
 let gameMode = "";
@@ -63,7 +65,7 @@ function handlePlay() {
 }
 
 function handleBack() {
-  resetVariables();
+  reset();
   backToMenu();
 }
 
@@ -130,14 +132,18 @@ function backToMenu() {
   menuGame.classList.remove("enabled");
 }
 
-function resetVariables() {
+function reset() {
   playerName = "";
   gameMode = "";
+  playerImg.style.display = "none";
+  computerImg.style.display = "none";
+  removeClassGameButtons();
 }
 
 function setChoices(e) {
   playerChoice = e.target.innerHTML;
   setComputerChoice();
+  setVisual(e);
 }
 
 function setComputerChoice() {
@@ -155,6 +161,48 @@ function setComputerChoice() {
     }
     case 3: {
       computerChoice = "scissors";
+      break;
+    }
+  }
+}
+
+function setVisual(e) {
+  setButtonsStyle(e);
+  setDisplay();
+}
+
+function setButtonsStyle(e) {
+  removeClassGameButtons();
+  e.target.classList.add("player__choice");
+}
+
+function removeClassGameButtons() {
+  gameButtons.forEach(function (button) {
+    button.classList.remove("player__choice");
+  });
+}
+
+function setDisplay() {
+  setImage(playerImg, playerChoice);
+  setImage(computerImg, computerChoice);
+}
+
+function setImage(img, choice) {
+  img.style.display = "block";
+  switch (choice) {
+    case "rock": {
+      img.setAttribute("src", "assets/img/rock-light.png");
+      img.setAttribute("alt", "rock-image");
+      break;
+    }
+    case "paper": {
+      img.setAttribute("src", "assets/img/paper-light.png");
+      img.setAttribute("alt", "paper-image");
+      break;
+    }
+    case "scissors": {
+      img.setAttribute("src", "assets/img/scissors-light.png");
+      img.setAttribute("alt", "scissors-image");
       break;
     }
   }
