@@ -10,8 +10,9 @@ const menuStart = document.querySelector(".menu__start");
 const menuContainer = document.querySelector(".menu__container");
 const menuGame = document.querySelector(".menu__game");
 const gameContainer = document.querySelector(".game__container");
-const gamePoints = document.querySelectorAll(".game__point");
 const gameModeTitle = document.querySelector(".game__mode--choice");
+const gamePoints = document.querySelectorAll(".game__point");
+const gameButtons = document.querySelectorAll(".game__button");
 
 let playerName = "";
 let gameMode = "";
@@ -26,8 +27,12 @@ buttons.forEach(function (button) {
   button.addEventListener("click", chooseGameMode);
 });
 
+gameButtons.forEach(function (button) {
+  button.addEventListener("click", setChoices);
+});
+
 playButton.addEventListener("click", handlePlay);
-backButton.addEventListener("click", handBack);
+backButton.addEventListener("click", handleBack);
 
 function chooseGameMode(e) {
   removeChoice();
@@ -57,7 +62,7 @@ function handlePlay() {
   console.log(gameMode);
 }
 
-function handBack() {
+function handleBack() {
   resetVariables();
   backToMenu();
 }
@@ -83,7 +88,7 @@ function setGameTemplate() {
       });
       gameModeTitle.innerHTML = "classic";
       goToGame();
-      return;
+      break;
     }
     case "bo3": {
       gamePoints.forEach(function (gamePoint) {
@@ -93,7 +98,7 @@ function setGameTemplate() {
       });
       gameModeTitle.innerHTML = "best of three";
       goToGame();
-      return;
+      break;
     }
     case "bo5": {
       gamePoints.forEach(function (gamePoint) {
@@ -103,7 +108,7 @@ function setGameTemplate() {
       });
       gameModeTitle.innerHTML = "best of five";
       goToGame();
-      return;
+      break;
     }
   }
 }
@@ -128,4 +133,29 @@ function backToMenu() {
 function resetVariables() {
   playerName = "";
   gameMode = "";
+}
+
+function setChoices(e) {
+  playerChoice = e.target.innerHTML;
+  setComputerChoice();
+}
+
+function setComputerChoice() {
+  randomChoice = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+
+  //rock = 1 | paper = 2 | scissors = 3
+  switch (randomChoice) {
+    case 1: {
+      computerChoice = "rock";
+      break;
+    }
+    case 2: {
+      computerChoice = "paper";
+      break;
+    }
+    case 3: {
+      computerChoice = "scissors";
+      break;
+    }
+  }
 }
