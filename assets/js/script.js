@@ -1,3 +1,4 @@
+const player = document.querySelector("#player-name");
 const username = document.querySelector("#username");
 const classic = document.querySelector("#classic");
 const bestOfThree = document.querySelector("#bo3");
@@ -11,19 +12,22 @@ const menuContainer = document.querySelector(".menu__container");
 const menuGame = document.querySelector(".menu__game");
 const gameContainer = document.querySelector(".game__container");
 const gameModeTitle = document.querySelector(".game__mode--choice");
+const roundWinnerSpan = document.querySelector(".round__winner--span");
 const gamePoints = document.querySelectorAll(".game__point");
 const gameButtons = document.querySelectorAll(".game__button");
 const playerImg = document.querySelector(".player__img");
 const computerImg = document.querySelector(".computer__img");
+const playerScoreSpan = document.querySelector(".game__player--score");
+const computerScoreSpan = document.querySelector(".game__computer--score");
 
 let playerName = "";
 let gameMode = "";
 let playerChoice = "";
 let computerChoice = "";
-let playerRoundScore = "0";
-let computerRoundScore = "0";
-let playerScore = "0";
-let computerScore = "0";
+let playerRoundScore = 0;
+let computerRoundScore = 0;
+let playerScore = 0;
+let computerScore = 0;
 
 buttons.forEach(function (button) {
   button.addEventListener("click", chooseGameMode);
@@ -58,10 +62,6 @@ function handlePlay() {
   setGameMode();
   if (gameMode === "") return;
   setGameTemplate();
-  goToGame();
-
-  console.log(playerName);
-  console.log(gameMode);
 }
 
 function handleBack() {
@@ -120,6 +120,7 @@ function goToGame() {
   menuStart.classList.add("disabled");
   gameContainer.classList.add("enabled");
   menuGame.classList.add("enabled");
+  player.innerHTML = playerName;
 }
 
 /*==== GAME SCREEN ====*/
@@ -144,6 +145,7 @@ function setChoices(e) {
   playerChoice = e.target.innerHTML;
   setComputerChoice();
   setVisual(e);
+  handleScore();
 }
 
 function setComputerChoice() {
@@ -206,4 +208,72 @@ function setImage(img, choice) {
       break;
     }
   }
+}
+
+function handleScore() {
+  const roundWinner = setRoundWinner();
+
+  switch (gameMode) {
+    case "classic": {
+      if (roundWinner === playerName) {
+        setScore(playerScore, playerScoreSpan);
+        playerScore += 1;
+      } else if (roundWinner === "computer") {
+        setScore(computerScore, computerScoreSpan);
+        computerScore += 1;
+      }
+    }
+    case "bo3": {
+      if (roundWinner === playerName) {
+        playerRoundScore += 1;
+        console.log(playerRoundScore);
+        if (playerRoundScore <= 2) {
+          setRoundScore("player", playerRoundScore);
+
+          playerScore += 1;
+          setScore(playerScore, playerScoreSpan);
+        } else {
+          handleWinner();
+        }
+      } else if (roundWinner === "computer") {
+        computerScore += 1;
+        setScore(computerScore, computerScoreSpan);
+        computerRoundScore += 1;
+        setRoundScore("computer", computerRoundScore);
+      }
+    }
+  }
+
+  roundWinnerSpan.innerHTML = roundWinner;
+}
+
+function setScore(score, span) {
+  span.innerHTML = score;
+}
+
+function setRoundScore(winner, roundScore) {
+  console.log(playerRoundScore);
+
+  gamePoints.forEach(function (point) {
+    if (point.classList.contains(`${winner}__point--${roundScore}`)) {
+      point.classList.add("point");
+    }
+  });
+}
+
+function setRoundWinner() {
+  if (playerChoice === "rock" && computerChoice === "rock") return "draw";
+  if (playerChoice === "rock" && computerChoice === "paper") return "computer";
+  if (playerChoice === "rock" && computerChoice === "scissors")
+    return playerName;
+  if (playerChoice === "paper" && computerChoice === "rock") return playerName;
+  if (playerChoice === "paper" && computerChoice === "paper") return "draw";
+  if (playerChoice === "paper" && computerChoice === "scissors")
+    return "computer";
+  if (playerChoice === "scissors" && computerChoice === "rock")
+    return "computer";
+  if (playerChoice === "scissors" && computerChoice === "paper")
+    return playerName;
+  if (playerChoice === "scissors" && computerChoice === "scissors")
+    return "draw";
 }
