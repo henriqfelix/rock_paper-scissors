@@ -230,6 +230,7 @@ function handleScore() {
         setScore(computerScoreSpan);
         computerScore += 1;
       }
+      break;
     }
     case "bo3": {
       if (roundWinner === playerName) {
@@ -251,6 +252,29 @@ function handleScore() {
           }
         }
       }
+      break;
+    }
+    case "bo5": {
+      if (roundWinner === playerName) {
+        playerRoundScore += 1;
+        if (playerRoundScore <= 3) {
+          setRoundScore("player", playerRoundScore);
+          if (playerRoundScore === 3) {
+            setRoundScore("player", playerRoundScore);
+            setScore(playerScoreSpan);
+          }
+        }
+      } else if (roundWinner === "computer") {
+        computerRoundScore += 1;
+        if (computerRoundScore <= 3) {
+          setRoundScore("computer", computerRoundScore);
+          if (computerRoundScore === 3) {
+            setRoundScore("computer", computerRoundScore);
+            setScore(computerScoreSpan);
+          }
+        }
+      }
+      break;
     }
   }
 
@@ -258,6 +282,8 @@ function handleScore() {
 }
 
 function setScore(span) {
+  if (gameMode === "classic") span.innerHTML = computerScore;
+
   if (gameMode === "bo3") {
     if (playerRoundScore === 2) {
       handleWinner(playerName);
@@ -271,8 +297,15 @@ function setScore(span) {
     }
   }
   if (gameMode === "bo5") {
-    if (playerRoundScore === 3 || computerRoundScore === 3) {
+    if (playerRoundScore === 3) {
+      handleWinner(playerName);
+      playerScore += 1;
+      span.innerHTML = playerScore;
+    }
+    if (computerRoundScore === 3) {
       handleWinner("computer");
+      computerScore += 1;
+      span.innerHTML = computerScore;
     }
   }
 }
