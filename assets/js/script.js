@@ -19,6 +19,8 @@ const playerImg = document.querySelector(".player__img");
 const computerImg = document.querySelector(".computer__img");
 const playerScoreSpan = document.querySelector(".game__player--score");
 const computerScoreSpan = document.querySelector(".game__computer--score");
+const winnerModal = document.querySelector(".game__modal");
+const modalButtons = document.querySelectorAll(".modal__buttons");
 
 let playerName = "";
 let gameMode = "";
@@ -29,16 +31,22 @@ let computerRoundScore = 0;
 let playerScore = 0;
 let computerScore = 0;
 
+//CHOSE GAME MODE
 buttons.forEach(function (button) {
   button.addEventListener("click", chooseGameMode);
 });
-
+//SET PLAYER'S CHOICE (ROCK, PAPER OR SCISSOR)
 gameButtons.forEach(function (button) {
   button.addEventListener("click", setChoices);
 });
-
+//GO TO GAME
 playButton.addEventListener("click", handlePlay);
+//BACK TO MENU
 backButton.addEventListener("click", handleBack);
+//SELECT PLAYER'S CHOICE (RESET SCORE OR PLAY AGAIN)
+modalButtons.forEach(function (button) {
+  button.addEventListener("click", handleModal);
+});
 
 function chooseGameMode(e) {
   removeChoice();
@@ -138,7 +146,7 @@ function reset() {
   gameMode = "";
   playerImg.style.display = "none";
   computerImg.style.display = "none";
-  removeClassGameButtons();
+  resetFullScore();
 }
 
 function setChoices(e) {
@@ -216,30 +224,32 @@ function handleScore() {
   switch (gameMode) {
     case "classic": {
       if (roundWinner === playerName) {
-        setScore(playerScore, playerScoreSpan);
+        setScore(playerScoreSpan);
         playerScore += 1;
       } else if (roundWinner === "computer") {
-        setScore(computerScore, computerScoreSpan);
+        setScore(computerScoreSpan);
         computerScore += 1;
       }
     }
     case "bo3": {
       if (roundWinner === playerName) {
         playerRoundScore += 1;
-        console.log(playerRoundScore);
         if (playerRoundScore <= 2) {
           setRoundScore("player", playerRoundScore);
-
-          playerScore += 1;
-          setScore(playerScore, playerScoreSpan);
-        } else {
-          handleWinner();
+          if (playerRoundScore === 2) {
+            setRoundScore("player", playerRoundScore);
+            setScore(playerScoreSpan);
+          }
         }
       } else if (roundWinner === "computer") {
-        computerScore += 1;
-        setScore(computerScore, computerScoreSpan);
         computerRoundScore += 1;
-        setRoundScore("computer", computerRoundScore);
+        if (computerRoundScore <= 2) {
+          setRoundScore("computer", computerRoundScore);
+          if (computerRoundScore === 2) {
+            setRoundScore("computer", computerRoundScore);
+            setScore(computerScoreSpan);
+          }
+        }
       }
     }
   }
@@ -247,18 +257,101 @@ function handleScore() {
   roundWinnerSpan.innerHTML = roundWinner;
 }
 
-function setScore(score, span) {
-  span.innerHTML = score;
+function setScore(span) {
+  if (gameMode === "bo3") {
+    if (playerRoundScore === 2) {
+      handleWinner(playerName);
+      playerScore += 1;
+      span.innerHTML = playerScore;
+    }
+    if (computerRoundScore === 2) {
+      handleWinner("computer");
+      computerScore += 1;
+      span.innerHTML = computerScore;
+    }
+  }
+  if (gameMode === "bo5") {
+    if (playerRoundScore === 3 || computerRoundScore === 3) {
+      handleWinner("computer");
+    }
+  }
 }
 
 function setRoundScore(winner, roundScore) {
-  console.log(playerRoundScore);
-
+  console.log(winner, roundScore);
   gamePoints.forEach(function (point) {
     if (point.classList.contains(`${winner}__point--${roundScore}`)) {
       point.classList.add("point");
     }
   });
+}
+
+function resetRoundScore() {
+  gamePoints.forEach(function (point) {
+    point.classList.remove("point");
+  });
+}
+
+function handleWinner(winner) {
+  //showWinnerModal()
+  showWinnerModal(winner);
+  //resetScore();
+  console.log(`${winner} venceu`);
+}
+
+function resetFullScore() {
+  playerRoundScore = 0;
+  computerRoundScore = 0;
+  playerScore = 0;
+  computerScore = 0;
+  playerScoreSpan.innerHTML = "0";
+  computerScoreSpan.innerHTML = "0";
+  resetRoundScore();
+  removeClassGameButtons();
+  roundWinnerSpan.innerHTML = "";
+}
+
+function resetParcialScore() {
+  playerRoundScore = 0;
+  computerRoundScore = 0;
+  resetRoundScore();
+  removeClassGameButtons();
+  roundWinnerSpan.innerHTML = "";
+}
+
+function setTitleModal(winner) {
+  const titleModal = winnerModal.children[0];
+  titleModal.innerHTML = `${winner} wins!`;
+}
+
+function showWinnerModal(winner) {
+  console.log("estou dentro do winner modal" + winner);
+  setTitleModal(winner);
+  winnerModal.classList.add("visible");
+  handleGameButtons("disable");
+}
+
+function hiddenWinnerModal() {
+  winnerModal.classList.remove("visible");
+  handleGameButtons("enable");
+}
+
+function handleGameButtons(attribute) {
+  gameButtons.forEach(function (button) {
+    if (attribute === "disable") button.disabled = true;
+    if (attribute === "enable") button.disabled = false;
+  });
+}
+
+function handleModal(button) {
+  if (button.target.classList.contains("rs")) {
+    resetFullScore();
+    hiddenWinnerModal();
+  }
+  if (button.target.classList.contains("pa")) {
+    resetParcialScore();
+    hiddenWinnerModal();
+  }
 }
 
 function setRoundWinner() {
