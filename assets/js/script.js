@@ -220,15 +220,13 @@ function setImage(img, choice) {
 
 function handleScore() {
   const roundWinner = setRoundWinner();
-
   switch (gameMode) {
     case "classic": {
       if (roundWinner === playerName) {
-        setScore(playerScoreSpan);
-        playerScore += 1;
-      } else if (roundWinner === "computer") {
-        setScore(computerScoreSpan);
-        computerScore += 1;
+        setScore(playerScoreSpan, playerName);
+      }
+      if (roundWinner === "computer") {
+        setScore(computerScoreSpan, "computer");
       }
       break;
     }
@@ -281,8 +279,17 @@ function handleScore() {
   roundWinnerSpan.innerHTML = roundWinner;
 }
 
-function setScore(span) {
-  if (gameMode === "classic") span.innerHTML = computerScore;
+function setScore(span, winnerClassic) {
+  if (gameMode === "classic") {
+    if (winnerClassic === playerName) {
+      playerScore += 1;
+      span.innerHTML = playerScore;
+    }
+    if (winnerClassic === "computer") {
+      computerScore += 1;
+      span.innerHTML = computerScore;
+    }
+  }
 
   if (gameMode === "bo3") {
     if (playerRoundScore === 2) {
