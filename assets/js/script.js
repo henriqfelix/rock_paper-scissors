@@ -74,6 +74,7 @@ function handlePlay() {
 
 function handleBack() {
   reset();
+  hiddenWinnerModal();
   backToMenu();
 }
 
