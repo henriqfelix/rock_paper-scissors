@@ -278,7 +278,6 @@ function setScore(span) {
 }
 
 function setRoundScore(winner, roundScore) {
-  console.log(winner, roundScore);
   gamePoints.forEach(function (point) {
     if (point.classList.contains(`${winner}__point--${roundScore}`)) {
       point.classList.add("point");
@@ -293,10 +292,7 @@ function resetRoundScore() {
 }
 
 function handleWinner(winner) {
-  //showWinnerModal()
   showWinnerModal(winner);
-  //resetScore();
-  console.log(`${winner} venceu`);
 }
 
 function resetFullScore() {
@@ -325,7 +321,6 @@ function setTitleModal(winner) {
 }
 
 function showWinnerModal(winner) {
-  console.log("estou dentro do winner modal" + winner);
   setTitleModal(winner);
   winnerModal.classList.add("visible");
   handleGameButtons("disable");
