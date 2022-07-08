@@ -29,7 +29,7 @@
 </p>
 
 <p align="center">
-    <a href="https://henriqfelix.github.io/my_portfolio/#home">
+    <a href="https://henriqfelix.github.io/rock_paper-scissors/">
         <img src="https://img.shields.io/static/v1?label&message=:: play ::&color=blue&style=for-the-badge"/>
     </a>
 </p>
